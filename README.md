@@ -5,6 +5,21 @@ I had to made this becase there was problem with xbacklight in my Lenovo G40 lap
 Although there should be some options in xbacklight to make it work. It was faster to write this code than figure it out. 
 I have it written in two seperate languages and there are variations among them.
 
+## Build
+You can use the `gcc` comamnd for c version and `go build` command for the go version. Once you make the executable named brightness, you can use it. If you want to use it from anywhere place it in your `/bin` folder. In case for i3 I have specified the keybindings for Brightness up and down key.
+The corresponding lines of the i3 config is as follows.
+### for c version 
+```
+bindsym XF86MonBrightnessUp exec --no-startup-id brightness -u 10
+bindsym XF86MonBrightnessDown exec --no-startup-id brightness -d 10
+```
+
+### for golang version 
+```
+bindsym XF86MonBrightnessUp exec --no-startup-id brightness -up
+bindsym XF86MonBrightnessDown exec --no-startup-id brightness -down
+```
+
 ## Uses
 It is used for increasing, decreasing and setting brightness percentage. 
 
