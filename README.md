@@ -6,6 +6,12 @@ Although there should be some options in xbacklight to make it work. It was fast
 I have it written in two seperate languages and there are variations among them.
 
 ## Build
+For shell script you don't have to build it, you can just run it as follows to increase and decrese by 10 percentage.
+```bash
+brightness -inc 10
+brightness -dec 10
+```
+
 You can use the `gcc` comamnd for c version and `go build` command for the go version. Once you make the executable named brightness, you can use it. If you want to use it from anywhere place it in your `/bin` folder. In case for i3 I have specified the keybindings for Brightness up and down key.
 The corresponding lines of the i3 config is as follows.
 ### for c version 
