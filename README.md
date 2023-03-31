@@ -26,6 +26,14 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightness -up
 bindsym XF86MonBrightnessDown exec --no-startup-id brightness -down
 ```
 
+### Rust Version
+Also changed the path for my new laptop.
+
+```
+bindsym XF86MonBrightnessUp exec --no-startup-id brightness +5
+bindsym XF86MonBrightnessDown exec --no-startup-id brightness -5
+```
+
 ## Uses
 It is used for increasing, decreasing and setting brightness percentage. 
 
