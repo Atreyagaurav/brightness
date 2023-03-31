@@ -16,13 +16,29 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!("{}", perc);
     } else {
         let change: i64 = args[1].parse()?;
-        if perc + change < 0 {
-            perc = 0;
-        } else if perc + change > 100 {
-            perc = 100;
-        } else {
-            perc += change;
-        }
+        perc = match args[1].chars().into_iter().next().unwrap() {
+            '+' => {
+                if perc + change > 100 {
+                    100
+                } else {
+                    perc + change
+                }
+            }
+            '-' => {
+                if perc + change < 0 {
+                    0
+                } else {
+                    perc + change
+                }
+            }
+            _ => {
+                if change > 100 {
+                    100
+                } else {
+                    change
+                }
+            }
+        };
         let new_val = max_val * perc / 100;
         let mut brighness_file: File = File::options().write(true).open(BRIGHTNESS_FILE)?;
         write!(brighness_file, "{}", new_val)?;
