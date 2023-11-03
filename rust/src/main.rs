@@ -1,15 +1,23 @@
 use std::{
     error::Error,
-    fs::{read_to_string, File},
+    fs::{read_dir, read_to_string, File},
     io::Write,
 };
 
-static MAX_BRIGHTNESS_FILE: &str = "/sys/class/backlight/amdgpu_bl0/max_brightness";
-static BRIGHTNESS_FILE: &str = "/sys/class/backlight/amdgpu_bl0/brightness";
+static DEVICE_DIR: &str = "/sys/class/backlight/";
+static MAX_BRIGHTNESS_FILE: &str = "max_brightness";
+static BRIGHTNESS_FILE: &str = "brightness";
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let max_val: i64 = read_to_string(&MAX_BRIGHTNESS_FILE)?.trim().parse()?;
-    let cur_val: i64 = read_to_string(&BRIGHTNESS_FILE)?.trim().parse()?;
+    let mut path = read_dir(DEVICE_DIR).expect("Wrong Device Directory");
+    let device = path.next().unwrap().unwrap().path();
+
+    let max_val: i64 = read_to_string(device.join(&MAX_BRIGHTNESS_FILE))?
+        .trim()
+        .parse()?;
+    let cur_val: i64 = read_to_string(device.join(&BRIGHTNESS_FILE))?
+        .trim()
+        .parse()?;
     let mut perc: i64 = cur_val * 100 / max_val;
     let args: Vec<String> = std::env::args().collect();
     if args.len() == 1 {
@@ -40,7 +48,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
         };
         let new_val = max_val * perc / 100;
-        let mut brighness_file: File = File::options().write(true).open(BRIGHTNESS_FILE)?;
+        let mut brighness_file: File = File::options()
+            .write(true)
+            .open(device.join(&BRIGHTNESS_FILE))?;
         write!(brighness_file, "{}", new_val)?;
         println!("{}", perc);
     }

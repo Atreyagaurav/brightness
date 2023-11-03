@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "brightness"
+name = "zero-brightness"
 version = "0.1.0"

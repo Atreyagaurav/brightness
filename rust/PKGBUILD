@@ -1,6 +1,6 @@
 # Maintainer: Gaurav Atreya <allmanpride@gmail.com>
-pkgname=brightness
-pkgver=0.2
+pkgname=zero-brightness
+pkgver=0.3
 pkgrel=1
 pkgdesc="Tool to change brightness"
 arch=('x86_64')
